@@ -17,7 +17,7 @@ jobs:
         run: sudo apt-get update && sudo apt-get install wrk -y
 
       - name: Install Setup
-        run: "./setup.sh"
+        run: "bash ./setup.sh"
 
       - name: Run benchmarks
         run: "./run_benchmarks.sh"
