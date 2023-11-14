@@ -20,9 +20,8 @@ jobs:
 
       - uses: actions/setup-java@v3
         with:
-          distribution: "adopt"
-          java-version: "17"
-          cache: "maven"
+        distribution: 'zulu'
+        java-version: '17'
 
       - uses: actions/setup-go@v4
         with:
