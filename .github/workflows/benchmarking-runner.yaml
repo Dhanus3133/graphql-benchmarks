@@ -18,4 +18,4 @@ jobs:
         run: "bash ./setup.sh"
 
       - name: Run benchmarks
-        run: "bash ./run_benchmarks.sh"
+        run: "./run_benchmarks.sh"
