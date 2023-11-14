@@ -13,8 +13,9 @@ jobs:
     runs-on: ubuntu-22.04
     timeout-minutes: 30
     steps:
+      - uses: actions/checkout@v4
       - name: Install Setup
-        run: "./setup.sh"
+        run: "bash ./setup.sh"
 
       - name: Run benchmarks
-        run: "./run_benchmarks.sh"
+        run: "bash ./run_benchmarks.sh"
