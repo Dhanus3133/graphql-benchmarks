@@ -16,14 +16,14 @@ jobs:
       - uses: actions/checkout@v4
       - name: Install Dependencies
         run: |
-          RUN sudo apt-get update && sudo apt-get install -y nginx openjdk-17-jdk git curl wget wrk gnuplot
+          RUN sudo apt-get update && sudo apt-get install -y build-essential libssl-dev nginx openjdk-17-jdk git curl wget wrk gnuplot
 
           # Install the latest LTS version of Node.js
           RUN curl -fsSL https://deb.nodesource.com/setup_lts.x | bash - && sudo apt-get install -y nodejs
 
           # Install Go
           RUN wget https://dl.google.com/go/go1.21.1.linux-amd64.tar.gz -O- | tar xz -C /usr/local
-          ENV PATH=$PATH:/usr/local/go/bin
+          RUN export PATH=$PATH:/usr/local/go/bin
 
           # Nginx configurations
           RUN mkdir -p /var/cache/nginx-cache \
