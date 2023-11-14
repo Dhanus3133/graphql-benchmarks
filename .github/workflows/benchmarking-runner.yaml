@@ -13,9 +13,11 @@ jobs:
     runs-on: ubuntu-22.04
     timeout-minutes: 30
     steps:
-      - uses: actions/checkout@v4
+      - name: Install Dependencies
+        run: sudo apt-get update && sudo apt-get install wrk -y
+
       - name: Install Setup
-        run: "bash ./setup.sh"
+        run: "./setup.sh"
 
       - name: Run benchmarks
         run: "./run_benchmarks.sh"
