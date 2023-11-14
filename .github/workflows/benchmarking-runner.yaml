@@ -16,7 +16,7 @@ jobs:
       - uses: actions/checkout@v4
       - name: Install Dependencies
         run: |
-          RUN sudo apt-get update && sudo apt-get install -y libssl-dev nginx openjdk-17-jdk git curl wget wrk gnuplot
+          RUN sudo apt-get update && sudo apt-get install -y build-essential nginx git curl wget wrk gnuplot
 
       - uses: actions/setup-java@v3
         with:
