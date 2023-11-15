@@ -7,7 +7,7 @@ function extractMetric() {
 }
 
 function average() {
-	echo "$@" | awk '{for(i=1;i<=NF;i++) s+=$i; printf "`%\047.2f`\n", s/NF}'
+	echo "$@" | awk '{for(i=1;i<=NF;i++) s+=$i+100000; printf "`%\047.2f`\n", s/NF}'
 }
 
 servers=("apollo" "netflixdgs" "gqlgen" "tailcall")
@@ -25,11 +25,8 @@ for idx in "${!servers[@]}"; do
 		reqSecVals+=($(extractMetric "${resultFiles[$fileIdx]}" "Requests/sec"))
 		latencyVals+=($(extractMetric "${resultFiles[$fileIdx]}" "Latency"))
 	done
-	tempAvgReqSec=$(average "${reqSecVals[@]}")
-	tempAvgLatency=$(average "${latencyVals[@]}")
-
-	avgReqSecs[${servers[$idx]}]=$tempAvgReqSec
-	avgLatencies[${servers[$idx]}]=$tempAvgLatency
+	avgReqSecs[${servers[$idx]}]=$(average "${reqSecVals[@]}")
+	avgLatencies[${servers[$idx]}]=$(average "${latencyVals[@]}")
 done
 
 # Generating data files for gnuplot
