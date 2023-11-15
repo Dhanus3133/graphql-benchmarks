@@ -25,8 +25,11 @@ for idx in "${!servers[@]}"; do
 		reqSecVals+=($(extractMetric "${resultFiles[$fileIdx]}" "Requests/sec"))
 		latencyVals+=($(extractMetric "${resultFiles[$fileIdx]}" "Latency"))
 	done
-	avgReqSecs[${servers[$idx]}]=$(average "${reqSecVals[@]}")
-	avgLatencies[${servers[$idx]}]=$(average "${latencyVals[@]}")
+	tempAvgReqSec=$(average "${reqSecVals[@]}")
+	tempAvgLatency=$(average "${latencyVals[@]}")
+
+	avgReqSecs[${servers[$idx]}]=$tempAvgReqSec
+	avgLatencies[${servers[$idx]}]=$tempAvgLatency
 done
 
 # Generating data files for gnuplot
