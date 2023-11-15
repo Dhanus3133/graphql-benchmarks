@@ -16,7 +16,7 @@ jobs:
       - uses: actions/checkout@v4
       - name: Install Dependencies
         run: |
-          sudo apt-get update && sudo apt-get install -y build-essential libssl-dev openjdk-19-jdk git curl wget wrk gnuplot
+          sudo apt-get update && sudo apt-get install -y build-essential libssl-dev openjdk-17-jdk git curl wget wrk gnuplot
 
       - uses: actions/setup-go@v4
         with:
