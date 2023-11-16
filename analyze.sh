@@ -7,7 +7,7 @@ function extractMetric() {
 }
 
 function average() {
-	echo "$@" | awk '{for(i=1;i<=NF;i++) s+=$i; printf "`%''\047.2f`\n", s/NF}'
+	echo "$@" | awk '{for(i=1;i<=NF;i++) s+=$i; printf "%\047.2f\n", s/NF}'
 }
 
 servers=("apollo" "netflixdgs" "gqlgen" "tailcall")
@@ -26,10 +26,10 @@ for idx in "${!servers[@]}"; do
 		latencyVals+=($(extractMetric "${resultFiles[$fileIdx]}" "Latency"))
 	done
 	avgReqSecs[${servers[$idx]}]=$(average "${reqSecVals[@]}")
-    echo "testing"
-    echo "${servers[$idx]}: ${avgReqSecs[${servers[$idx]}]}"
+	echo "testing"
+	echo "${servers[$idx]}: ${avgReqSecs[${servers[$idx]}]}"
 	avgLatencies[${servers[$idx]}]=$(average "${latencyVals[@]}")
-    echo "${servers[$idx]}: ${avgLatencies[${servers[$idx]}]}"
+	echo "${servers[$idx]}: ${avgLatencies[${servers[$idx]}]}"
 done
 
 # Generating data files for gnuplot
@@ -77,7 +77,9 @@ mv latency_histogram.png assets/
 resultsTable="<!-- PERFORMANCE_RESULTS_START -->\n| Server | Requests/sec | Latency (ms) |\n|--------|--------------|--------------|"
 
 for server in "${servers[@]}"; do
-	resultsTable+="\n| $server | $(printf "%'.2f" "${avgReqSecs[$server]}") | $(printf "%'.2f" "${avgLatencies[$server]}") |"
+	formattedAvgReqSecs=$(printf "%'f" "${avgReqSecs[$server]}")
+	formattedAvgLatencies=$(printf "%'f" "${avgLatencies[$server]}")
+	resultsTable+="\n| $server | $formattedAvgReqSecs | $formattedAvgLatencies |"
 done
 
 resultsTable+="\n<!-- PERFORMANCE_RESULTS_END -->"
