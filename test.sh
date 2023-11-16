@@ -2,7 +2,7 @@
 
 # Function to calculate the average of numbers passed as arguments
 function average() {
-    echo "$@" | awk '{for(i=1;i<=NF;i++) s+=$i; printf "%\047.2f\n", s/NF}'
+	echo "$@" | awk '{for(i=1;i<=NF;i++) s+=$i; printf "%\047.2f\n", s/NF}'
 }
 
 # Example usage
@@ -11,10 +11,10 @@ numbers="1770.53"
 result=$(average $numbers)
 
 # Format numbers with commas
-formattedNumbers=$(echo $numbers | awk '{gsub(/,/,""); printf "%\047.2f\n", $1}')
+formattedNumbers=$(echo $numbers | sed 's/\([[:digit:]]\{3\}\)\([[:digit:]]\{3\}\)\([[:digit:]]\{3\}\)/\1,\2,\3/g')
 
 echo "Numbers: $formattedNumbers"
 echo "Average: $result"
 
 # Write output to README2.md
-echo -e "Numbers: $formattedNumbers\nAverage: $result" > README2.md
+echo -e "Numbers: $formattedNumbers\nAverage: $result" >README2.md
