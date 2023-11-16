@@ -17,4 +17,4 @@ echo "Numbers: 182,928.12 $formattedNumbers"
 echo "Average: $result"
 
 # Write output to README2.md
-echo -e "Numbers: $formattedNumbers\nAverage: $result" >README2.md
+echo -e "Numbers: 182,928.12 $formattedNumbers\\nAverage: $result" >README2.md
