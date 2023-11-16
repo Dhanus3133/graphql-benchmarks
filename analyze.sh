@@ -7,7 +7,7 @@ function extractMetric() {
 }
 
 function average() {
-	echo "$@" | awk '{for(i=1;i<=NF;i++) s+=$i; printf "`%''\047.2f`\n", s/NF}' | sed 's/\,/\\,/'
+	echo "$@" | awk '{for(i=1;i<=NF;i++) s+=$i; printf "`%''\047.2f`\n", s/NF}'
 }
 
 servers=("apollo" "netflixdgs" "gqlgen" "tailcall")
@@ -77,7 +77,7 @@ mv latency_histogram.png assets/
 resultsTable="<!-- PERFORMANCE_RESULTS_START -->\n| Server | Requests/sec | Latency (ms) |\n|--------|--------------|--------------|"
 
 for server in "${servers[@]}"; do
-	resultsTable+="\n| $server | ${avgReqSecs[$server]} | ${avgLatencies[$server]} |"
+	resultsTable+="\n| $server | $(printf "%'.2f" "${avgReqSecs[$server]}") | $(printf "%'.2f" "${avgLatencies[$server]}") |"
 done
 
 resultsTable+="\n<!-- PERFORMANCE_RESULTS_END -->"
