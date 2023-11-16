@@ -2,8 +2,9 @@
 
 # Function to calculate the average of numbers passed as arguments
 function average() {
-	echo $(numfmt --grouping "$@")
-	# echo $("numfmt --grouping $@")
+	# echo $(numfmt --grouping "$@")
+    # echo $("numfmt --grouping $@")
+    printf "%'.f\n" $@
 }
 # Example usage
 # numbers="57029929.54 92884998.8867 10386.0433"
@@ -21,8 +22,8 @@ result=$(average $numbers)
 # echo "$@" | awk LC_NUMERIC=en_US printf "%'.f\n" 123456789
 # echo 1234567899289 | awk '$0=gensub(/(...)/,"\\1,","g"){sub(",$",""); print}'
 # echo "Input: " $numbers
-echo "A test: " $(numfmt --grouping "$numbers")
+# echo "A test: " $(numfmt --grouping "$numbers")
 echo "REsult: " $result
 
 # Write output to README2.md
-# echo -e "Numbers: 182,928.12 $formattedNumbers\\nAverage: $result" >README2.md
+echo -e "Numbers: $numbers\nAverage: $result" >README2.md
