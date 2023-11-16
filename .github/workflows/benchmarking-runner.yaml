@@ -18,6 +18,12 @@ jobs:
       - name: test
         run: "bash ./test.sh"
 
+      - name: Push readme
+        run: |
+          git add README2.md
+          git commit -m "update new readme2"
+          git push
+
       # - name: Install Dependencies
       #   run: |
       #     sudo apt-get update && sudo apt-get install -y build-essential libssl-dev git curl wget wrk gnuplot

@@ -2,7 +2,7 @@
 
 # Function to calculate the average of numbers passed as arguments
 function average() {
-	echo "$@" | awk '{for(i=1;i<=NF;i++) s+=$i; printf "%\047.2f\n", s/NF}'
+    echo "$@" | awk '{for(i=1;i<=NF;i++) s+=$i; printf "%\047.2f\n", s/NF}'
 }
 
 # Example usage
@@ -13,3 +13,5 @@ result=$(average $numbers)
 echo "Numbers: $numbers"
 echo "Average: $result"
 
+# Write output to README2.md
+echo -e "Numbers: $numbers\nAverage: $result" > README2.md
