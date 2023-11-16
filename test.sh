@@ -13,6 +13,7 @@ result=$(average $numbers)
 # Format numbers with commas
 formattedNumbers=$(echo $numbers | sed 's/\([[:digit:]]\{3\}\)\([[:digit:]]\{3\}\)\([[:digit:]]\{3\}\)/\1,\2,\3/g')
 echo "The actual number ig" $numbers | sed 's/\([[:digit:]]\{3\}\)\([[:digit:]]\{3\}\)\([[:digit:]]\{3\}\)/\1,\2,\3/g'
+echo 123456789 | awk '$0=gensub(/(...)/,"\\1,","g")'
 
 echo "Numbers: 182,928.12 $formattedNumbers"
 echo "Average: $result"
