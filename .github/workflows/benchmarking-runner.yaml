@@ -17,7 +17,7 @@ jobs:
       - uses: fregante/setup-git-user@v2
 
       - name: Bash update
-        run: "sudo apt-get upgrade bash"
+        run: "sudo apt-get install bash -y"
 
       - name: find bash version
         run: "bash --version"
