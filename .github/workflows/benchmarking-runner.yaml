@@ -14,22 +14,26 @@ jobs:
     timeout-minutes: 30
     steps:
       - uses: actions/checkout@v4
-      - name: Install Dependencies
-        run: |
-          sudo apt-get update && sudo apt-get install -y build-essential libssl-dev git curl wget wrk gnuplot
 
-      - uses: actions/setup-go@v4
-        with:
-          go-version: "1.21.1"
+      - name: test
+        run: "bash ./test.sh"
 
-      - uses:
-          actions/setup-node@v4
-
-      - uses: actions/setup-java@v3
-        with:
-          distribution: 'temurin'
-          java-version: '17'
-          cache: 'gradle'
+      # - name: Install Dependencies
+      #   run: |
+      #     sudo apt-get update && sudo apt-get install -y build-essential libssl-dev git curl wget wrk gnuplot
+      #
+      # - uses: actions/setup-go@v4
+      #   with:
+      #     go-version: "1.21.1"
+      #
+      # - uses:
+      #     actions/setup-node@v4
+      #
+      # - uses: actions/setup-java@v3
+      #   with:
+      #     distribution: 'temurin'
+      #     java-version: '17'
+      #     cache: 'gradle'
 
           # Nginx configurations
           # RUN mkdir -p /var/cache/nginx-cache \
@@ -42,8 +46,8 @@ jobs:
           #     && touch /var/log/nginx/access.log /var/log/nginx/error.log \
           #     && chown -R www-data:www-data /var/cache/nginx-cache /var/log/nginx /var/lib/nginx
 
-      - name: Install Setup
-        run: "bash ./setup.sh"
+      # - name: Install Setup
+      #   run: "bash ./setup.sh"
 
-      - name: Run benchmarks
-        run: "./run_benchmarks.sh"
+      # - name: Run benchmarks
+      #   run: "./run_benchmarks.sh"

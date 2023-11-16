@@ -1,0 +1,15 @@
+#!/bin/bash
+
+# Function to calculate the average of numbers passed as arguments
+function average() {
+	echo "$@" | awk '{for(i=1;i<=NF;i++) s+=$i; printf "%\047.2f\n", s/NF}'
+}
+
+# Example usage
+# numbers="57029929.54 92884998.8867 10386.0433"
+numbers="1770.53"
+result=$(average $numbers)
+
+echo "Numbers: $numbers"
+echo "Average: $result"
+
