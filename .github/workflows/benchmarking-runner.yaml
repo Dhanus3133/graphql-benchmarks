@@ -16,6 +16,9 @@ jobs:
       - uses: actions/checkout@v4
       - uses: fregante/setup-git-user@v2
 
+      - name: find bash version
+        run: "bash --version"
+
       - name: test
         run: "./test.sh"
 
@@ -42,16 +45,16 @@ jobs:
       #     java-version: '17'
       #     cache: 'gradle'
 
-          # Nginx configurations
-          # RUN mkdir -p /var/cache/nginx-cache \
-          #     /var/lib/nginx/body \
-          #     /var/lib/nginx/proxy \
-          #     /var/lib/nginx/fastcgi \
-          #     /var/lib/nginx/uwsgi \
-          #     /var/lib/nginx/scgi \
-          #     /var/log/nginx \
-          #     && touch /var/log/nginx/access.log /var/log/nginx/error.log \
-          #     && chown -R www-data:www-data /var/cache/nginx-cache /var/log/nginx /var/lib/nginx
+      # Nginx configurations
+      # RUN mkdir -p /var/cache/nginx-cache \
+      #     /var/lib/nginx/body \
+      #     /var/lib/nginx/proxy \
+      #     /var/lib/nginx/fastcgi \
+      #     /var/lib/nginx/uwsgi \
+      #     /var/lib/nginx/scgi \
+      #     /var/log/nginx \
+      #     && touch /var/log/nginx/access.log /var/log/nginx/error.log \
+      #     && chown -R www-data:www-data /var/cache/nginx-cache /var/log/nginx /var/lib/nginx
 
       # - name: Install Setup
       #   run: "bash ./setup.sh"
