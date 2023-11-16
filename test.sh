@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/bin/sh
 
 # Function to calculate the average of numbers passed as arguments
 function average() {
@@ -22,6 +22,7 @@ result=$(average $numbers)
 # echo 1234567899289 | awk '$0=gensub(/(...)/,"\\1,","g"){sub(",$",""); print}'
 # echo "Input: " $numbers
 echo "A test: " $(numfmt --grouping "$numbers")
+echo "REsult: " $result
 
 # Write output to README2.md
 echo -e "Numbers: 182,928.12 $formattedNumbers\\nAverage: $result" >README2.md
