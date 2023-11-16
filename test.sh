@@ -21,7 +21,7 @@ result=$(average $numbers)
 # echo "$@" | awk LC_NUMERIC=en_US printf "%'.f\n" 123456789
 # echo 1234567899289 | awk '$0=gensub(/(...)/,"\\1,","g"){sub(",$",""); print}'
 # echo "Input: " $numbers
-# echo "Average: " $result
+echo "A test: " $(numfmt --grouping "$numbers")
 
 # Write output to README2.md
 echo -e "Numbers: 182,928.12 $formattedNumbers\\nAverage: $result" >README2.md
