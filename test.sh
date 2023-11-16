@@ -7,6 +7,9 @@ function average() {
 
 # Example usage
 # numbers="57029929.54 92884998.8867 10386.0433"
+numbers="1770.53"
+result=$(average $numbers)
+
 # Format numbers with commas
 formattedNumbers=$(echo $numbers | awk '{gsub(/,/,""); printf "%\047.2f\n", $1}')
 
