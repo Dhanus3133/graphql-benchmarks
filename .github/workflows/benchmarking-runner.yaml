@@ -16,9 +16,6 @@ jobs:
       - uses: actions/checkout@v4
       - uses: fregante/setup-git-user@v2
 
-      - name: Bash update
-        run: "sudo apt-get install bash -y"
-
       - name: find bash version
         run: "bash --version"
 
