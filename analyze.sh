@@ -7,7 +7,7 @@ function extractMetric() {
 }
 
 function average() {
-	echo "$@" | awk '{for(i=1;i<=NF;i++) s+=$i; printf "`%\047.2f`\n", s/NF}'
+	echo "$@" | awk '{for(i=1;i<=NF;i++) s+=$i; printf "`%''\047.2f`\n", s/NF}' | sed 's/\,/\\,/'
 }
 
 servers=("apollo" "netflixdgs" "gqlgen" "tailcall")
