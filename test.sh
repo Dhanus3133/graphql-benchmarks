@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/bin/zsh
 
 # Function to calculate the average of numbers passed as arguments
 function average() {
