@@ -6,31 +6,22 @@ DB_USER="user"
 DB_PASSWORD="password"
 DB_PORT="5432"
 
-# Create a Docker network
-docker network create hasura-network
-
-# Start PostgreSQL container
-docker run -d --name postgres \
-	--network hasura-network \
-	-e POSTGRES_USER=$DB_USER \
-	-e POSTGRES_PASSWORD=$DB_PASSWORD \
-	-e POSTGRES_DB=$DB_NAME \
-	-p $DB_PORT:5432 \
-	postgres:13
-
-DB_HOST=$(docker inspect -f '{{range .NetworkSettings.Networks}}{{.IPAddress}}{{end}}' postgres)
+# Check if PostgreSQL service is running, start if not
+if ! pg_isready -U "$DB_USER" -d "$DB_NAME" -h localhost -p "$DB_PORT"; then
+  sudo service postgresql start
+fi
 
 # Wait for PostgreSQL to be ready
 echo "Waiting for PostgreSQL to be ready..."
-until docker exec postgres pg_isready -U $DB_USER -d $DB_NAME -h $DB_HOST; do
-	sleep 1
+until pg_isready -U "$DB_USER" -d "$DB_NAME" -h localhost -p "$DB_PORT"; do
+  sleep 1
 done
 echo "PostgreSQL is ready!"
 
 # Start Hasura GraphQL Engine container
 docker run -d --name graphql-engine \
 	--network hasura-network \
-	-e HASURA_GRAPHQL_DATABASE_URL=postgres://$DB_USER:$DB_PASSWORD@$DB_HOST:$DB_PORT/$DB_NAME \
+	-e HASURA_GRAPHQL_DATABASE_URL=postgres://$DB_USER:$DB_PASSWORD@localhost:$DB_PORT/$DB_NAME \
 	-e HASURA_GRAPHQL_ENABLE_CONSOLE=false \
 	-e HASURA_GRAPHQL_ENABLED_LOG_TYPES=startup,http-log,webhook-log,websocket-log,query-log \
 	-p 8080:8080 \
@@ -40,8 +31,15 @@ docker run -d --name graphql-engine \
 echo "Waiting for Hasura GraphQL Engine to be ready..."
 sleep 10
 
+# Create a new PostgreSQL role
+su - postgres -c "psql -c \"CREATE USER $DB_USER WITH SUPERUSER PASSWORD '$DB_PASSWORD';\""
+
+# Create a new database owned by the new role
+su - postgres -c "psql -c \"CREATE DATABASE $DB_NAME OWNER $DB_USER;\""
+
+echo "Database and user created successfully."
 # Create and insert data into PostgreSQL
-psql "postgresql://$DB_USER:$DB_PASSWORD@$DB_HOST:$DB_PORT/$DB_NAME" <<EOF
+psql "postgresql://$DB_USER:$DB_PASSWORD@localhost:$DB_PORT/$DB_NAME" <<EOF
 CREATE SCHEMA IF NOT EXISTS public;
 
 DROP TABLE IF EXISTS public.posts;
@@ -82,7 +80,7 @@ jq -c '.[]' users.json | while read -r user; do
 	phone=$(echo "$user" | jq -r '.phone' | sed "s/'/''/g")
 	website=$(echo "$user" | jq -r '.website' | sed "s/'/''/g")
 
-	psql "postgresql://$DB_USER:$DB_PASSWORD@$DB_HOST:$DB_PORT/$DB_NAME" -c "INSERT INTO public.users (id, name, username, email, phone, website) VALUES ($id, '$name', '$username', '$email', '$phone', '$website') ON CONFLICT (id) DO NOTHING;"
+	psql "postgresql://$DB_USER:$DB_PASSWORD@localhost:$DB_PORT/$DB_NAME" -c "INSERT INTO public.users (id, name, username, email, phone, website) VALUES ($id, '$name', '$username', '$email', '$phone', '$website') ON CONFLICT (id) DO NOTHING;"
 done
 
 # Insert posts into the database
@@ -92,7 +90,7 @@ jq -c '.[]' posts.json | while read -r post; do
 	title=$(echo "$post" | jq -r '.title' | sed "s/'/''/g")
 	body=$(echo "$post" | jq -r '.body' | sed "s/'/''/g")
 
-	psql "postgresql://$DB_USER:$DB_PASSWORD@$DB_HOST:$DB_PORT/$DB_NAME" -c "INSERT INTO public.posts (id, user_id, title, body) VALUES ($id, $user_id, '$title', '$body') ON CONFLICT (id) DO NOTHING;"
+	psql "postgresql://$DB_USER:$DB_PASSWORD@localhost:$DB_PORT/$DB_NAME" -c "INSERT INTO public.posts (id, user_id, title, body) VALUES ($id, $user_id, '$title', '$body') ON CONFLICT (id) DO NOTHING;"
 done
 
 # Clean up temporary files
