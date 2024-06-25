@@ -14,7 +14,7 @@ RUN apt-get update && apt-get install -y \
   wrk \
   gnuplot \
   postgresql \
-  postgresql-client \
+  postgresql-contrib \
   && rm -rf /var/lib/apt/lists/*
 
 # Install the latest LTS version of Node.js
