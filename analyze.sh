@@ -12,16 +12,10 @@ function average() {
 
 declare -A formattedServerNames
 formattedServerNames=(
-    ["tailcall"]="Tailcall"
-    ["gqlgen"]="Gqlgen"
-    ["apollo"]="Apollo GraphQL"
-    ["netflixdgs"]="Netflix DGS"
-    ["caliban"]="Caliban"
-    ["async_graphql"]="async-graphql"
     ["hasura"]="Hasura"
 )
 
-servers=("apollo" "caliban" "netflixdgs" "gqlgen" "tailcall" "async_graphql" "hasura")
+servers=("hasura")
 resultFiles=("$@")
 declare -A avgReqSecs
 declare -A avgLatencies
