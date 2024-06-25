@@ -4,21 +4,16 @@
 DB_NAME="db"
 DB_USER="user"
 DB_PASSWORD="password"
-DB_PORT="5432"
-
-# Create a Docker network
-docker network create hasura-network
+DB_HOST="localhost"
+DB_PORT="5416"
 
 # Start PostgreSQL container
 docker run -d --name postgres \
-	--network hasura-network \
 	-e POSTGRES_USER=$DB_USER \
 	-e POSTGRES_PASSWORD=$DB_PASSWORD \
 	-e POSTGRES_DB=$DB_NAME \
 	-p 127.0.0.1:$DB_PORT:5432 \
 	postgres:13
-
-DB_HOST=$(docker inspect -f '{{range .NetworkSettings.Networks}}{{.IPAddress}}{{end}}' postgres)
 
 # Wait for PostgreSQL to be ready
 echo "Waiting for PostgreSQL to be ready..."
@@ -29,7 +24,6 @@ echo "PostgreSQL is ready!"
 
 # Start Hasura GraphQL Engine container
 docker run -d --name graphql-engine \
-	--network hasura-network \
 	-e HASURA_GRAPHQL_DATABASE_URL=postgres://$DB_USER:$DB_PASSWORD@$DB_HOST:$DB_PORT/$DB_NAME \
 	-e HASURA_GRAPHQL_ENABLE_CONSOLE=false \
 	-e HASURA_GRAPHQL_ENABLED_LOG_TYPES=startup,http-log,webhook-log,websocket-log,query-log \
@@ -104,7 +98,6 @@ npx hasura metadata apply
 
 # Start Nginx container with custom configuration
 docker run -d --name nginx \
-	--network hasura-network \
 	-v "$(pwd)/nginx.conf:/etc/nginx/conf.d/default.conf" \
 	-p 8000:80 \
 	nginx:latest
