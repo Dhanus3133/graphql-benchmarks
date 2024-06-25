@@ -100,9 +100,13 @@ echo "==================="
 docker logs graphql-engine
 echo "==================="
 
+echo "==================="
+echo "Chaning directory..."
 # Apply Hasura metadata
-cd ./graphql/hasura
+cd graphql/hasura
+echo "==================="
 npx hasura metadata apply
+echo "==================="
 
 # Start Nginx container with custom configuration
 docker run -d --name nginx \
