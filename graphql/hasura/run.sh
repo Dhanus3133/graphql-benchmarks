@@ -18,6 +18,9 @@ until pg_isready -U "$DB_USER" -d "$DB_NAME" -h localhost -p "$DB_PORT"; do
 done
 echo "PostgreSQL is ready!"
 
+# Create a Docker network
+docker network create hasura-network
+
 # Start Hasura GraphQL Engine container
 docker run -d --name graphql-engine \
 	--network hasura-network \
