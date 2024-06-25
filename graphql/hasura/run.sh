@@ -21,15 +21,6 @@ echo "PostgreSQL is ready!"
 # Create a Docker network
 docker network create hasura-network
 
-# Start Hasura GraphQL Engine container
-docker run -d --name graphql-engine \
-	--network hasura-network \
-	-e HASURA_GRAPHQL_DATABASE_URL=postgres://$DB_USER:$DB_PASSWORD@localhost:$DB_PORT/$DB_NAME \
-	-e HASURA_GRAPHQL_ENABLE_CONSOLE=false \
-	-e HASURA_GRAPHQL_ENABLED_LOG_TYPES=startup,http-log,webhook-log,websocket-log,query-log \
-	-p 8080:8080 \
-	hasura/graphql-engine:v2.0.10
-
 # Wait for Hasura to be ready
 echo "Waiting for Hasura GraphQL Engine to be ready..."
 sleep 10
@@ -92,6 +83,22 @@ done
 
 # Clean up temporary files
 rm users.json posts.json
+
+# Start Hasura GraphQL Engine container
+docker run -d --name graphql-engine \
+	--network hasura-network \
+	-e HASURA_GRAPHQL_DATABASE_URL=postgres://$DB_USER:$DB_PASSWORD@localhost:$DB_PORT/$DB_NAME \
+	-e HASURA_GRAPHQL_ENABLE_CONSOLE=false \
+	-e HASURA_GRAPHQL_ENABLED_LOG_TYPES=startup,http-log,webhook-log,websocket-log,query-log \
+	-p 8080:8080 \
+	hasura/graphql-engine:v2.0.10
+
+sleep 10
+
+echo "Hasura GraphQL Engine is ready!"
+echo "==================="
+docker logs graphql-engine
+echo "==================="
 
 # Apply Hasura metadata
 cd ./graphql/hasura
