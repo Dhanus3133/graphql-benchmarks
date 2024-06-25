@@ -20,14 +20,20 @@ function runBenchmark() {
     killServerOnPort 8000
     sleep 5
     local serviceScript="$1"
+    local run_daemon="${2:-true}"
     local benchmarkScript="wrk/bench.sh"
-    
+
     # Replace / with _
     local sanitizedServiceScriptName=$(echo "$serviceScript" | tr '/' '_')
-    
+
     local resultFiles=("result1_${sanitizedServiceScriptName}.txt" "result2_${sanitizedServiceScriptName}.txt" "result3_${sanitizedServiceScriptName}.txt")
 
-    bash "$serviceScript" &   # Run in daemon mode
+    if [ "$run_daemon" = true ]; then
+        bash "$serviceScript" &   # Run in daemon mode
+    else
+        bash "$serviceScript"  # Run synchronously without background process
+    fi
+
     sleep 15   # Give some time for the service to start up
 
     bash "test_query.sh"
@@ -47,6 +53,9 @@ function runBenchmark() {
         allResults+=("$resultFile")
     done
 }
+
+runBenchmark "graphql/hasura/run.sh" false
+bash "graphql/hasura/kill.sh"
 
 runBenchmark "graphql/apollo_server/run.sh"
 cd graphql/apollo_server/
