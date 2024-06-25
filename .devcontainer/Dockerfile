@@ -36,6 +36,13 @@ RUN mkdir -p /var/cache/nginx-cache \
   && touch /var/log/nginx/access.log /var/log/nginx/error.log \
   && chown -R www-data:www-data /var/cache/nginx-cache /var/log/nginx /var/lib/nginx
 
+USER postgres
+RUN /etc/init.d/postgresql start && \
+    psql --command "CREATE USER user WITH SUPERUSER PASSWORD 'password';" && \
+    createdb -O user db
+
+USER root
+
 # Set the working directory
 WORKDIR /workspace
 

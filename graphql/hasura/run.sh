@@ -31,12 +31,6 @@ docker run -d --name graphql-engine \
 echo "Waiting for Hasura GraphQL Engine to be ready..."
 sleep 10
 
-# Create a new PostgreSQL role
-su - postgres -c "psql -c \"CREATE USER $DB_USER WITH SUPERUSER PASSWORD '$DB_PASSWORD';\""
-
-# Create a new database owned by the new role
-su - postgres -c "psql -c \"CREATE DATABASE $DB_NAME OWNER $DB_USER;\""
-
 echo "Database and user created successfully."
 # Create and insert data into PostgreSQL
 psql "postgresql://$DB_USER:$DB_PASSWORD@localhost:$DB_PORT/$DB_NAME" <<EOF
