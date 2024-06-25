@@ -38,7 +38,7 @@ RUN mkdir -p /var/cache/nginx-cache \
 
 USER postgres
 RUN /etc/init.d/postgresql start && \
-    psql --command "CREATE USER user WITH SUPERUSER PASSWORD 'password';" && \
+    psql --command "CREATE USER \"user\" WITH SUPERUSER PASSWORD 'password';" && \
     createdb -O user db
 
 USER root
