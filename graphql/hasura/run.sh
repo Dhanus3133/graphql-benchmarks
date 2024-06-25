@@ -91,6 +91,7 @@ docker run -d --name graphql-engine \
 	-e HASURA_GRAPHQL_ENABLE_CONSOLE=false \
 	-e HASURA_GRAPHQL_ENABLED_LOG_TYPES=startup,http-log,webhook-log,websocket-log,query-log \
 	-p 8080:8080 \
+    --add-host=host.docker.internal:host-gateway
 	hasura/graphql-engine:v2.0.10
 
 sleep 10
