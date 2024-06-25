@@ -1,8 +1,6 @@
 name: "Run benchmark"
 
 on:
-  pull_request_target:
-    types: [assigned, opened, synchronize, reopened, edited]
   push:
     branches:
       - main
@@ -14,8 +12,7 @@ permissions:
 
 jobs:
   build:
-    runs-on: benchmarking-runner
-    if: github.event.head_commit.message != 'Update performance results in README.md'
+    runs-on: ubuntu-latest
     env:
       GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
     steps:
