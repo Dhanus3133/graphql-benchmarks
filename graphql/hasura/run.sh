@@ -18,9 +18,6 @@ until pg_isready -U "$DB_USER" -d "$DB_NAME" -h localhost -p "$DB_PORT"; do
 done
 echo "PostgreSQL is ready!"
 
-# Create a Docker network
-docker network create hasura-network
-
 # Wait for Hasura to be ready
 echo "Waiting for Hasura GraphQL Engine to be ready..."
 sleep 10
@@ -85,13 +82,11 @@ done
 rm users.json posts.json
 
 # Start Hasura GraphQL Engine container
-docker run -d --name graphql-engine \
-	--network hasura-network \
+docker run --network="host" -d --name graphql-engine \
 	-e HASURA_GRAPHQL_DATABASE_URL=postgres://$DB_USER:$DB_PASSWORD@host.docker.internal:$DB_PORT/$DB_NAME \
 	-e HASURA_GRAPHQL_ENABLE_CONSOLE=false \
 	-e HASURA_GRAPHQL_ENABLED_LOG_TYPES=startup,http-log,webhook-log,websocket-log,query-log \
 	-p 8080:8080 \
-    --add-host host.docker.internal:host-gateway
 	hasura/graphql-engine:v2.0.10
 
 sleep 10
@@ -111,7 +106,6 @@ echo "==================="
 
 # Start Nginx container with custom configuration
 docker run -d --name nginx \
-	--network hasura-network \
 	-v "$(pwd)/nginx.conf:/etc/nginx/conf.d/default.conf" \
 	-p 8000:80 \
 	nginx:latest
