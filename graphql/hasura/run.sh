@@ -29,10 +29,11 @@ echo "PostgreSQL is running at $DB_HOST:$DB_PORT"
 # Start Hasura GraphQL Engine container
 docker run -d --name graphql-engine \
 	-e HASURA_GRAPHQL_DATABASE_URL=postgres://$DB_USER:$DB_PASSWORD@$DB_HOST:$DB_PORT/$DB_NAME \
-	-e HASURA_GRAPHQL_ENABLE_CONSOLE=false \
+	-e HASURA_GRAPHQL_ENABLE_CONSOLE=true \
+    -e HASURA_GRAPHQL_DEV_MODE=true \
 	-e HASURA_GRAPHQL_ENABLED_LOG_TYPES=startup,http-log,webhook-log,websocket-log,query-log \
-	-p 127.0.0.1:8080:8080 \
-	hasura/graphql-engine:v2.0.10
+	-p 8080:8080 \
+	hasura/graphql-engine:v2.40.0
 
 echo "======"
 sleep 40
