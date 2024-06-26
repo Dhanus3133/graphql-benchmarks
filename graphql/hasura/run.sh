@@ -33,6 +33,11 @@ docker run --network host -d --name graphql-engine \
 	-p 8080:8080 \
 	hasura/graphql-engine:v2.0.10
 
+echo "======"
+sleep 10
+docker logs -f graphql-engine
+echo "======"
+
 # Wait for Hasura to be ready
 echo "Waiting for Hasura GraphQL Engine to be ready..."
 sleep 10
