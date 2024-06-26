@@ -5,10 +5,10 @@ DB_NAME="db"
 DB_USER="user"
 DB_PASSWORD="password"
 DB_HOST="localhost"
-DB_PORT="5416"
+DB_PORT="5432"
 
 # Start PostgreSQL container
-docker run -d --name postgres \
+docker run --network host -d --name postgres \
 	-e POSTGRES_USER=$DB_USER \
 	-e POSTGRES_PASSWORD=$DB_PASSWORD \
 	-e POSTGRES_DB=$DB_NAME \
@@ -23,7 +23,7 @@ done
 echo "PostgreSQL is ready!"
 
 # Start Hasura GraphQL Engine container
-docker run -d --name graphql-engine \
+docker run --network host -d --name graphql-engine \
 	-e HASURA_GRAPHQL_DATABASE_URL=postgres://$DB_USER:$DB_PASSWORD@$DB_HOST:$DB_PORT/$DB_NAME \
 	-e HASURA_GRAPHQL_ENABLE_CONSOLE=false \
 	-e HASURA_GRAPHQL_ENABLED_LOG_TYPES=startup,http-log,webhook-log,websocket-log,query-log \
