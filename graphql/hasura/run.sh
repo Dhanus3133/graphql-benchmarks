@@ -44,6 +44,7 @@ echo "======"
 echo "======"
 echo "Hasura GraphQL Engine is running at http://localhost:8080"
 echo "Tring curl"
+docker ps -a
 curl http://$HASURA_URL:8080/v1/version
 echo "======"
 
