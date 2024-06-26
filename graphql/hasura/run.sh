@@ -38,11 +38,15 @@ sleep 10
 docker logs -f graphql-engine
 echo "======"
 
+echo "======"
+echo "Hasura GraphQL Engine is running at http://localhost:8080"
+echo "Tring curl"
+curl http://localhost:8080/v1/version
+echo "======"
+
 # Wait for Hasura to be ready
 echo "Waiting for Hasura GraphQL Engine to be ready..."
 sleep 10
-
-DB_HOST=localhost
 
 # Create and insert data into PostgreSQL
 psql "postgresql://$DB_USER:$DB_PASSWORD@$DB_HOST:$DB_PORT/$DB_NAME" <<EOF
