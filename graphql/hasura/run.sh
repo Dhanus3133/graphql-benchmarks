@@ -16,12 +16,14 @@ docker run --network host -d --name postgres \
 
 DB_HOST="docker container inspect -f '{{range .NetworkSettings.Networks}}{{.IPAddress}}{{end}}' postgres"
 
-# Wait for PostgreSQL to be ready
-echo "Waiting for PostgreSQL to be ready..."
-until docker exec postgres pg_isready -U $DB_USER -d $DB_NAME -h $DB_HOST; do
-	sleep 1
-done
-echo "PostgreSQL is ready!"
+echo "PostgreSQL is running at $DB_HOST:$DB_PORT"
+
+# # Wait for PostgreSQL to be ready
+# echo "Waiting for PostgreSQL to be ready..."
+# until docker exec postgres pg_isready -U $DB_USER -d $DB_NAME -h $DB_HOST; do
+# 	sleep 1
+# done
+# echo "PostgreSQL is ready!"
 
 # Start Hasura GraphQL Engine container
 docker run --network host -d --name graphql-engine \
