@@ -27,7 +27,7 @@ echo "PostgreSQL is running at $DB_HOST:$DB_PORT"
 # echo "PostgreSQL is ready!"
 
 # Start Hasura GraphQL Engine container
-docker run --net=host -d -p 127.0.0.1:8080:8080 \
+docker run --net=host -d -P --expose=8080 -p 127.0.0.1:8080:8080 \
     --name graphql-engine \
 	-e HASURA_GRAPHQL_DATABASE_URL=postgres://$DB_USER:$DB_PASSWORD@$DB_HOST:$DB_PORT/$DB_NAME \
 	-e HASURA_GRAPHQL_ENABLE_CONSOLE=true \
@@ -36,7 +36,7 @@ docker run --net=host -d -p 127.0.0.1:8080:8080 \
 
 HASURA_URL=$(docker inspect -f '{{range .NetworkSettings.Networks}}{{.IPAddress}}{{end}}' graphql-engine)
 echo "======"
-sleep 40
+sleep 20
 docker logs graphql-engine
 echo "======"
 
@@ -46,6 +46,7 @@ echo "Tring curl"
 docker ps -a
 curl http://$HASURA_URL:8080/v1/version
 curl http://localhost:8080/v1/version
+curl http://0.0.0.0:8080/v1/version
 echo "======"
 
 # Wait for Hasura to be ready
