@@ -1,5 +1,6 @@
 #!/bin/bash
 
+cd ./graphql/hasura
 # Database credentials
 DB_NAME="db"
 DB_USER="user"
@@ -106,8 +107,11 @@ done
 # Clean up temporary files
 rm users.json posts.json
 
+echo "==============================="
+echo "Tring curl"
+curl http://localhost:8080/v1/version
+echo "==============================="
 # Apply Hasura metadata
-cd ./graphql/hasura
 npx hasura metadata apply
 
 # Start Nginx container with custom configuration
