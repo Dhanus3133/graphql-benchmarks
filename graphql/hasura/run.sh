@@ -127,6 +127,11 @@ docker run -d --name nginx \
 	-p 8000:80 \
 	nginx:latest
 
+echo "==============================="
+sleep 10
+echo "nginx logs"
+docker logs nginx
+echo "==============================="
 NGINX_URL=$(docker inspect -f '{{range .NetworkSettings.Networks}}{{.IPAddress}}{{end}}' nginx)
 
 curl -i -X POST -d '{"query": "{posts{title}}"}' http://$NGINX_URL:8000/graphql -H "Content-Type: application/json"
