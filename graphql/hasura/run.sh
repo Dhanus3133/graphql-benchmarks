@@ -7,7 +7,7 @@ DB_PASSWORD="password"
 DB_PORT="5432"
 
 # Start PostgreSQL container
-docker run --network host -d --name postgres \
+docker run -d --name postgres \
 	-e POSTGRES_USER=$DB_USER \
 	-e POSTGRES_PASSWORD=$DB_PASSWORD \
 	-e POSTGRES_DB=$DB_NAME \
@@ -36,6 +36,8 @@ docker run --network host -d --name graphql-engine \
 # Wait for Hasura to be ready
 echo "Waiting for Hasura GraphQL Engine to be ready..."
 sleep 10
+
+DB_HOST=localhost
 
 # Create and insert data into PostgreSQL
 psql "postgresql://$DB_USER:$DB_PASSWORD@$DB_HOST:$DB_PORT/$DB_NAME" <<EOF
