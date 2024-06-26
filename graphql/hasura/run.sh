@@ -35,7 +35,7 @@ docker run --network host -d --name graphql-engine \
 
 echo "======"
 sleep 10
-docker logs -f graphql-engine
+docker logs graphql-engine
 echo "======"
 
 echo "======"
