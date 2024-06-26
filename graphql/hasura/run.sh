@@ -4,7 +4,6 @@
 DB_NAME="db"
 DB_USER="user"
 DB_PASSWORD="password"
-DB_HOST="localhost"
 DB_PORT="5432"
 
 # Start PostgreSQL container
@@ -14,6 +13,8 @@ docker run --network host -d --name postgres \
 	-e POSTGRES_DB=$DB_NAME \
 	-p 127.0.0.1:$DB_PORT:5432 \
 	postgres:13
+
+DB_HOST="docker container inspect -f '{{range .NetworkSettings.Networks}}{{.IPAddress}}{{end}}' postgres"
 
 # Wait for PostgreSQL to be ready
 echo "Waiting for PostgreSQL to be ready..."
