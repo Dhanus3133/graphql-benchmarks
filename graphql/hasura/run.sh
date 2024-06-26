@@ -134,7 +134,7 @@ docker logs nginx
 echo "==============================="
 NGINX_URL=$(docker inspect -f '{{range .NetworkSettings.Networks}}{{.IPAddress}}{{end}}' nginx)
 
-curl -i -X POST -d '{"query": "{posts{title}}"}' http://$HASURA_URL:8000/v1/graphql -H "Content-Type: application/json"
+curl -i -X POST -d '{"query": "{posts{title}}"}' http://$HASURA_URL:8080/v1/graphql -H "Content-Type: application/json"
 curl -i -X POST -d '{"query": "{posts{title}}"}' http://$NGINX_URL:8000/graphql -H "Content-Type: application/json"
 
 sleep 10
