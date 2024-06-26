@@ -123,7 +123,7 @@ npx hasura metadata apply --endpoint http://$HASURA_URL:8080
 
 # Start Nginx container with custom configuration
 docker run -d --name nginx \
-	-v "$(pwd)/nginx.conf:/etc/nginx/conf.d/default.conf" \
+	-v "nginx.conf:/etc/nginx/conf.d/default.conf" \
 	-p 8000:80 \
 	nginx:latest
 
