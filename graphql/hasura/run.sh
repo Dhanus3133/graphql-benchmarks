@@ -35,6 +35,7 @@ docker run -d --name graphql-engine \
 	-p 8080:8080 \
 	hasura/graphql-engine:v2.40.0
 
+HASURA_URL=$(docker inspect -f '{{range .NetworkSettings.Networks}}{{.IPAddress}}{{end}}' graphql-engine)
 echo "======"
 sleep 40
 docker logs graphql-engine
@@ -43,7 +44,7 @@ echo "======"
 echo "======"
 echo "Hasura GraphQL Engine is running at http://localhost:8080"
 echo "Tring curl"
-curl http://localhost:8080/v1/version
+curl http://$HASURA_URL:8080/v1/version
 echo "======"
 
 # Wait for Hasura to be ready
