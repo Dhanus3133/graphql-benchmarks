@@ -119,7 +119,7 @@ echo "Tring curl"
 curl http://localhost:8080/v1/version
 echo "==============================="
 # Apply Hasura metadata
-npx hasura metadata apply
+npx hasura metadata apply --endpoint http://HASURA_URL:8080
 
 # Start Nginx container with custom configuration
 docker run -d --name nginx \
