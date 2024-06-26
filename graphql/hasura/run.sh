@@ -14,7 +14,7 @@ docker run --network host -d --name postgres \
 	-p 127.0.0.1:$DB_PORT:5432 \
 	postgres:13
 
-DB_HOST="docker container inspect -f '{{range .NetworkSettings.Networks}}{{.IPAddress}}{{end}}' postgres"
+DB_HOST=$(docker inspect -f '{{range .NetworkSettings.Networks}}{{.IPAddress}}{{end}}' postgres)
 
 echo "PostgreSQL is running at $DB_HOST:$DB_PORT"
 
