@@ -30,11 +30,11 @@ docker run -d --name graphql-engine \
 	-e HASURA_GRAPHQL_DATABASE_URL=postgres://$DB_USER:$DB_PASSWORD@$DB_HOST:$DB_PORT/$DB_NAME \
 	-e HASURA_GRAPHQL_ENABLE_CONSOLE=false \
 	-e HASURA_GRAPHQL_ENABLED_LOG_TYPES=startup,http-log,webhook-log,websocket-log,query-log \
-	-p 8080:8080 \
+	-p 127.0.0.1:8080:8080 \
 	hasura/graphql-engine:v2.0.10
 
 echo "======"
-sleep 10
+sleep 40
 docker logs graphql-engine
 echo "======"
 
