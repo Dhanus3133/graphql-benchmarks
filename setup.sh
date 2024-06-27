@@ -29,6 +29,7 @@ cd ../../
 cd ../../
 
 # For hasura
-cd ./graphql/hasura
+echo "Current working directory: $(pwd)"
+cd graphql/hasura
 npm install
 cd ../../
