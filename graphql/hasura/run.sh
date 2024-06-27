@@ -1,5 +1,6 @@
 #!/bin/bash
 
+cd ./graphql/hasura
 # Database credentials
 DB_NAME="db"
 DB_USER="user"
@@ -91,7 +92,8 @@ done
 # Clean up temporary files
 rm users.json posts.json
 
+echo "HASURA_URL is http://$HASURA_URL:8080"
+
 # Apply Hasura metadata
-cd ./graphql/hasura
 npx hasura metadata apply --endpoint http://$HASURA_URL:8080
 cd ../..
