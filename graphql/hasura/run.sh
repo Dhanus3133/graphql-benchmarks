@@ -94,4 +94,15 @@ rm users.json posts.json
 
 # Apply Hasura metadata
 npx hasura metadata apply --endpoint http://$HASURA_URL:8080
+
+ls -l /home/vscode/.npm/_logs
+
+for file in /home/vscode/.npm/_logs/*.log; do
+	echo "----------------------------------"
+	echo "Contents of $file:"
+	cat "$file"
+	echo "----------------------------------"
+	echo
+done
+
 cd ../..
