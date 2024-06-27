@@ -93,6 +93,8 @@ done
 # Clean up temporary files
 rm users.json posts.json
 
+npm install
+
 # Apply Hasura metadata
 npx hasura metadata apply --endpoint http://$HASURA_URL:8080
 
