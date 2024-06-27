@@ -98,8 +98,11 @@ npm install
 # Apply Hasura metadata
 npx hasura metadata apply --endpoint http://$HASURA_URL:8080
 
+echo "trying with nodemodules"
+./node_modules/.bin/hasura metadata apply --endpoint http://$HASURA_URL:8080
+
 ls -l /home/vscode/.npm/_logs
-echo "Current working directory: $(pwd)""
+echo "Current working directory: $(pwd)"
 
 for file in /home/vscode/.npm/_logs/*.log; do
 	echo "----------------------------------"
