@@ -1,6 +1,6 @@
 #!/bin/bash
 
-cd ./graphql/hasura
+cd graphql/hasura
 # Database credentials
 DB_NAME="db"
 DB_USER="user"
