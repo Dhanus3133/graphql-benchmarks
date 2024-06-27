@@ -6,6 +6,7 @@ DB_NAME="db"
 DB_USER="user"
 DB_PASSWORD="password"
 DB_PORT="5432"
+echo "Current working directory: $(pwd)""
 
 # Start PostgreSQL container
 docker run -d --name postgres \
@@ -96,6 +97,7 @@ rm users.json posts.json
 npx hasura metadata apply --endpoint http://$HASURA_URL:8080
 
 ls -l /home/vscode/.npm/_logs
+echo "Current working directory: $(pwd)""
 
 for file in /home/vscode/.npm/_logs/*.log; do
 	echo "----------------------------------"
