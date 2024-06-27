@@ -6,7 +6,7 @@ DB_NAME="db"
 DB_USER="user"
 DB_PASSWORD="password"
 DB_PORT="5432"
-echo "Current working directory: $(pwd)""
+echo "Current working directory: $(pwd)"
 
 # Start PostgreSQL container
 docker run -d --name postgres \
