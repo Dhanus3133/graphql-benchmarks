@@ -31,3 +31,9 @@ cd ../../
 cd graphql/hasura
 npm install
 cd ../../
+
+# For grafbase
+cd graphql/grafbase
+npm i -g pnpm
+pnpm install
+cd ../../

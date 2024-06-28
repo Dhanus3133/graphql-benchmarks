@@ -1,0 +1,9 @@
+{
+  "dependencies": {
+    "grafbase": "^0.75.0",
+    "node-fetch": "^3.3.2"
+  },
+  "devDependencies": {
+    "@grafbase/sdk": "~0.25.0"
+  }
+}

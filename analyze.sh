@@ -19,9 +19,10 @@ formattedServerNames=(
 	["caliban"]="Caliban"
 	["async_graphql"]="async-graphql"
 	["hasura"]="Hasura"
+	["grafbase"]="Grafbase"
 )
 
-servers=("apollo" "caliban" "netflixdgs" "gqlgen" "tailcall" "async_graphql" "hasura")
+servers=("apollo" "caliban" "netflixdgs" "gqlgen" "tailcall" "async_graphql" "hasura" "grafbase")
 resultFiles=("$@")
 declare -A avgReqSecs
 declare -A avgLatencies

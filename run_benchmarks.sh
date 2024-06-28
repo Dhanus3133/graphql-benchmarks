@@ -76,5 +76,7 @@ runBenchmark "graphql/async_graphql/run.sh"
 runBenchmark "graphql/hasura/run.sh" false
 bash "graphql/hasura/kill.sh"
 
+runBenchmark "graphql/grafbase/run.sh"
+
 # Now, analyze all results together
 bash analyze.sh "${allResults[@]}"
